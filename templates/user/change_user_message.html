@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑用户信息</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/observations_add.css' %}">
+</head>
+<body>
+{% include 'head.html' %}
+<div class="container">
+    <div class="right">
+        <form action="{% url 'user:change' user_id %}" id="account_message" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="user_name">用户名:</label>
+            <input type="text" id="user_name" name="username" value="{{ username }}" required>
+            <label for="employ_gender">员工性别</label>
+            <select id="employ_gender" name="sex" >
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+            <label for="user_age">年龄:</label>
+            <input type="text" id="user_age" name="age"  required>
+            <label for="birthday">生日</label>
+            <input type="date" id="birthday" name="birthday" required>
+            <label for="user_phone">电话:</label>
+            <input type="text" id="user_phone" name="phone"  required>
+            <label for="user_email">邮箱:</label>
+            <input type="email" id="user_email" name="email" required>
+            <label for="user_resume">简介:</label>
+            <input type="text" id="user_resume" name="resume" required>
+            <button type="submit">确认</button>
+        </form>
+        <label class="error_msg">{{ error_msg }}</label>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+{% include 'head.html' %}
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6-md-offset-3">
+                <a href="{% url 'user:change_user_message' %}" class="btn btn-info">编辑</a>
+                <a href="{% url 'user:loginout' %}" class="btn btn-info">退出账号</a>
+                <a href="{% url 'user:show_change_image' %}" class="btn btn-info">修改头像</a>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>用户头像</th>
+                        <th>用户名</th>
+                        <th>性别</th>
+                        <th>年龄</th>
+                        <th>生日</th>
+                        <th>电话</th>
+                        <th>邮箱</th>
+                        <th>简介</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                        {% for m in message %}
+                            <td><img width="124" height="124" src="{% static m.image %}"/></td>
+                            <td>{{ m.username }}</td>
+                            <td>{{ m.sex }}</td>
+                            <td>{{ m.age }}</td>
+                            <td>{{ m.birthday }}</td>
+                            <td>{{ m.phone }}</td>
+                            <td>{{ m.email }}</td>
+                            <td>{{ m.resume }}</td>
+                        </tr>
+                            <label class="error_msg">{{ error_msg }}</label>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

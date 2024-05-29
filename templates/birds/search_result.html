@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pagination.css' %}">
+</head>
+{% include 'head.html' %}
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6-md-offset-3">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th><h4>序列号</h4></th>
+                            <th><span style="font-size: 30px">&#128038</span></th>
+                            <th><h4>名称</h4></th>
+                            <th><h4>目</h4></th>
+                            <th><h4>科</h4></th>
+                            <th><h4>属</h4></th>
+                            <th><span style="font-size: 30px">&#128024;</span><h4>体型特征</h4></th>
+                            <th><span style="font-size: 30px">&#128019;</span><h4>羽毛特征</h4></th>
+                            <th><span style="font-size: 30px">&#127804;</span><h4>栖息地</h4></th>
+                            <th><span style="font-size: 30px">&#127757;</span><h4>地理分布</h4></th>
+                            <th><span style="font-size: 30px">&#128219;</span><h4>保护等级</h4></th>
+                            <th><span style="font-size: 30px">&#128293;</span><h4>人气值</h4></th>
+                            <th><span style="font-size: 30px">&#128270;</span><h4>观察数</h4></th>
+                            <th><span style="font-size: 30px">&#128338;</span><h4>统计时间</h4></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     {% for r in res %}
+                         <tr>
+                             <th>{{ r.id}}</th>
+                             <th><img width="100" height="100" src="{% static r.images %}"/></th>
+                             <th>{{ r.name}}</th>
+                             <th>{{ r.order}}</th>
+                             <th>{{ r.family}}</th>
+                             <th>{{ r.genus}}</th>
+                             <th>{{ r.size}}</th>
+                             <th>{{ r.plumage}}</th>
+                             <th>{{ r.habitat}}</th>
+                             <th>{{ r.distribution}}</th>
+                             <th>{{ r.iucn_status}}</th>
+                             <th>{{ r.love_number}}</th>
+                             <th>{{ r.observations_number}}</th>
+                             <th>{{ r.date}}</th>
+                         </tr>
+                     {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

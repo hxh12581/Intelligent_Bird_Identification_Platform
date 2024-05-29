@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加观察记录</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/observations_add.css' %}">
+</head>
+<body>
+{% include 'head.html' %}
+<div class="container">
+    <div class="right">
+        <form action="{% url 'observations:add' %}" id="observationForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+{#            <label for="startTime">观察时间:</label>#}
+{#            <input type="datetime-local" id="startTime" name="date" required>#}
+
+            <label for="locationId">观察地点:</label>
+            <input type="text" id="locationId" name="location" required>
+
+            <label for="descriptionId">观察现象:</label>
+            <input type="text" id="descriptionId" name="description" required>
+
+            <label for="notesId">备注信息:</label>
+            <input type="text" id="notesId" name="additional_notes" required>
+
+            <label for="observation_data">上传鸟类观察图片:</label>
+            <input type="file" id="File" name="File" required>
+            <button type="submit">添加</button>
+        </form>
+        <label class="error_msg">{{ error_msg }}</label>
+    </div>
+</div>
+</body>
+</html>

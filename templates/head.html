@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>head</title>
+    <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
+</head>
+<body>
+<div class="nav">
+  <ul>
+      <li><a href="{% url 'user:index' %}" style="text-decoration: none;">首页</a></li>
+      <li><a href="{% url 'observations:observations' %}" style="text-decoration: none;">鸟类观察</a></li>
+      <li><a href="{% url 'birds:Birds_Archive' %}" style="text-decoration: none;">鸟类档案库</a></li>
+      <li><a href="{% url 'media:social_media' %}" style="text-decoration: none;">世界频道</a></li>
+      <li><a href="{% url 'user:show_user_message' %}" style="text-decoration: none;">我的</a></li>
+  </ul>
+</div>
+</body>
+</html>
