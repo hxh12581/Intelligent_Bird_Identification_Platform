@@ -1,0 +1,56 @@
+.nav {
+  background-color: #333;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(70deg, #003301, #003307);
+
+}
+
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav li {
+  float: left;
+  position: relative;
+  margin-right: 30px;
+}
+
+.nav a {
+  color: white;
+  font-size: 22px;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  padding: 0 20px;
+  line-height: 70px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav a:before, .nav a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.nav a:before {
+  transform-origin: right;
+}
+
+.nav a:after {
+  transform-origin: left;
+}
+
+.nav a:hover:before, .nav a:hover:after {
+  transform: scaleX(1);
+}
