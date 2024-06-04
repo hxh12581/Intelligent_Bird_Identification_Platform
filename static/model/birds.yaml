@@ -1,0 +1,11 @@
+train: D:\Pycharm\yolov8\data\train.txt
+val: D:\Pycharm\yolov8\data\val.txt
+test: D:\Pycharm\yolov8\data\test.txt
+
+# number of classes
+nc: 12
+
+# class names
+names: ['信天翁','美洲红鹮','蔚蓝松鸦','秃鹰','象牙嘴噪鹃','珍妮鹦鹉','蓝宝石鹀','军鹦鹉','孔雀','粉红鸫','红胡蜂虎','黄胸噪鹟']
+
+
