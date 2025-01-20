@@ -62,17 +62,23 @@ Conda	22.9.0
   > -  **observations_number**:观察数
   > -  **date**:统计时间
   
-- love
+- user_info_love
 
-  >- **love_id**：收藏夹编号
+  >- **id**:编号
+  >
+  >- **user_info_id**：用户表编号
+  >
+  >- **observation_id**：观察表编号
+  >
   
-  >- **bird_love_name**：爱鸟名字
-  >- **order**：鸟类所属的目。
-  >- **family**：鸟类所属的科。
-  >- **genus**：鸟类所属的属。
-  >- **images**：鸟类图片
-  >- **text**:收藏夹的内容
-  >- **user**:外键，关联account表中的user_id
+- user_info_observation
+
+   >- **id**:编号
+  >
+  >- **user_info_id**：用户表编号
+  >
+  >- **observation_id**：观察表编号
+  >
   
 - media
 
@@ -83,7 +89,7 @@ Conda	22.9.0
   >- **date**：发布的时间
   >- **comments**：评论内容
   
-- user
+- user_info
 
   >- **user_id**：用户ID
   >- **username**：用户姓名
@@ -92,6 +98,7 @@ Conda	22.9.0
   >- **username**:账号名
   >- **phone**:电话号
   >- **email**：邮箱
+  >- ...
 
 
 ### 7  页面设计
