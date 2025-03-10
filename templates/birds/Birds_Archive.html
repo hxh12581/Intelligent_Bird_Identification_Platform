@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鸟类档案库</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pagination.css' %}">
+</head>
+{% include 'head.html' %}
+<body>
+    <div class="container">
+        <form action="{% url 'birds:search' %}" style="padding-left: 900px ;margin-top: 10px;margin-bottom: 5px" method="get">
+            <input type="text" name='text' id="searchInput" placeholder="输入搜索内容...">
+            <input type="submit" value="搜索">
+        </form>
+        <div class="row">
+            <div class="col-md-6-md-offset-3">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th><h4>序列号</h4></th>
+                            <th><span style="font-size: 30px">&#128038</span></th>
+                            <th><h4>名称</h4></th>
+                            <th><h4>目</h4></th>
+                            <th><h4>科</h4></th>
+                            <th><h4>属</h4></th>
+                            <th><span style="font-size: 30px">&#128024;</span><h4>体型特征</h4></th>
+                            <th><span style="font-size: 30px">&#128019;</span><h4>羽毛特征</h4></th>
+                            <th><span style="font-size: 30px">&#127804;</span><h4>栖息地</h4></th>
+                            <th><span style="font-size: 30px">&#127757;</span><h4>地理分布</h4></th>
+                            <th><span style="font-size: 30px">&#128219;</span><h4>保护等级</h4></th>
+                            <th><span style="font-size: 30px">&#128293;</span><h4>人气值</h4></th>
+                            <th><span style="font-size: 30px">&#128270;</span><h4>观察数</h4></th>
+                            <th><span style="font-size: 30px">&#128338;</span><h4>统计时间</h4></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     {% for Birds in Birds_Archive_message %}
+                         <tr>
+                             <th>{{ Birds.id}}</th>
+                             <th><img width="100" height="100" src="{% static Birds.images %}"/></th>
+                             <th>{{ Birds.name}}</th>
+                             <th>{{ Birds.order}}</th>
+                             <th>{{ Birds.family}}</th>
+                             <th>{{ Birds.genus}}</th>
+                             <th>{{ Birds.size}}</th>
+                             <th>{{ Birds.plumage}}</th>
+                             <th>{{ Birds.habitat}}</th>
+                             <th>{{ Birds.distribution}}</th>
+                             <th>{{ Birds.iucn_status}}</th>
+                             <th>{{ Birds.love_number}}</th>
+                             <th>{{ Birds.observations_number}}</th>
+                             <th>{{ Birds.date}}</th>
+                         </tr>
+                     {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="btn-group-sm-container" style="margin-top: 10px;">
+        <div class="btn-group-sm">
+            <span class="step-links">
+                <p class="card-text">
+                    {% if Birds_Archive_message.has_previous %}
+                        <a href="?page={{ 1 }}" class="btn btn-success">第一页</a>
+                        <a href="?page={{ Birds_Archive_message.previous_page_number }}" class="btn btn-success">上一页</a>
+                    {% endif %}
+
+                    当前：{{ Birds_Archive_message.number }} / {{ Birds_Archive_message.paginator.num_pages }}
+
+                    {% if Birds_Archive_message.has_next %}
+                        <a href="?page={{ Birds_Archive_message.next_page_number }}" class="btn btn-success">下一页</a>
+                        <a href="?page={{ Birds_Archive_message.paginator.num_pages }}" class="btn btn-success">最后一页</a>
+                    {% endif %}
+                </p>
+            </span>
+         </div>
+    </div>
+</body>
+</html>

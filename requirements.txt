@@ -1,0 +1,8 @@
+Django==3.2.9
+numpy==1.24.0
+opencv_python==4.9.0.80
+Pillow==9.2.0
+tensorflow==2.14.0
+tensorflow_intel==2.14.0
+ultralytics==8.0.184
+

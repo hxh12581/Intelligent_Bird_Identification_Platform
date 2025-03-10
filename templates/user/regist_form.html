@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>智能鸟类识别平台用户注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="MyraStudio" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/theme.min.css' %}" rel="stylesheet" type="text/css" />
+    <style>
+        body{
+            /* 设置背景图片 */
+            background-image: url('/static/img/index/009.jpg');
+            /* 设置背景图片覆盖整个页面 */
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="bg-primary">
+
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center min-vh-100">
+                        <div class="w-100 d-block my-5">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 col-lg-5">
+                                     <div class="card">
+                                        <div class="card-body">
+                                            <div class="text-center mb-4 mt-3">
+                                                <h4>用户注册</h4>
+                                            </div>
+                                            <form id="regForm" method="post" novalidate>
+                                                {% csrf_token %}
+                                                {% for field in form %}
+                                                    <div class="form-group">
+                                                        <label for="{{ field.id_for_label }}">{{ field.id }}</label>
+                                                        {{field}}
+                                                        <span class="error-msg">{{ field.errors.0 }}</span>
+                                                        <div style="height: 10px;"></div>
+                                                    </div>
+                                                {% endfor %}
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <input id="btnSubmit" type="button" class="btn btn-primary" value="注册"/>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- end card-body -->
+                                    </div>
+                                    <!-- end card -->
+
+                                    <div class="row mt-4">
+                                        <div class="col-sm-12 text-center">
+                                            <p class="text-white-50 mb-0">登录? <a href="{% url 'user:login' %}" class="text-white-50 ml-1"><b>Sign Up</b></a></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- end col -->
+                            </div>
+                            <!-- end row -->
+                        </div> <!-- end .w-100 -->
+                    </div> <!-- end .d-flex -->
+                </div> <!-- end col-->
+            </div> <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+    <script>
+    //页面框架加载完成后自动执行函数
+    $(function(){
+        bindClickSubmit();
+    })
+    {#点击提交（注册）#}
+    function bindClickSubmit(){
+        $('#btnSubmit').click(function (){
+            $('.error-msg').empty();
+            //清空所有错误提示信息
+            //收集表单中的数据（找到每一个字段）
+            //数据ajax发送到后台
+            $.ajax({
+                url:"{% url 'user:regist' %}",
+                type:"POST",
+                data:$('#regForm').serialize(),
+                //将表单 #regForm 中的所有字段数据序列化为字符串，并作为请求的数据参数，同时包含了 CSRF token 以确保安全性
+                dataType:"JSON",
+                success:function (res){
+                    if(res.status){
+                        location.href = res.data;
+                    }else{
+                        $.each(res.error,function (key,value){
+                            //遍历错误信息对象，针对每个错误字段（key）和错误信息（value）进行处理
+                            $("#id_"+key).next().text(value[0]);
+                            //找到对应表单字段的错误信息标签，并将错误信息输出到页面上供用户查看
+                        })
+                    }
+                }
+            })
+        })
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑观察记录</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/observations_add.css' %}">
+</head>
+<body>
+{% include 'head.html' %}
+<div class="container">
+    <div class="right">
+        <form action="{% url 'observations:change' observation.id %}" id="observationForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="startTime">观察时间:</label>
+            <input type="datetime-local" id="startTime" name="date" value="{{ observation.date|date:"Y-m-d\TH:i" }}" required>
+
+            <label for="locationId">观察地点:</label>
+            <input type="text" id="locationId" name="location" value="{{ observation.location }}" required>
+
+            <label for="descriptionId">观察现象:</label>
+            <input type="text" id="descriptionId" name="description" value="{{ observation.description }}" required>
+
+            <label for="notesId">备注:</label>
+            <input type="text" id="notesId" name="additional_notes" value="{{ observation.additional_notes }}" required>
+
+            <button type="submit">提交</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

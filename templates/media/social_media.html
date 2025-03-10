@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pagination.css' %}">
+    <title>世界频道</title>
+    <style>
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .action-buttons .btn {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+{% include 'head.html' %} <!-- 假设head.html包含导航栏和其他头部信息 -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <!-- 用户头像 -->
+                    <img width="124" height="124" src="{% static current_user_message.image %}" class="img-thumbnail" />
+                    <!-- 用户名 -->
+                    <h5 class="card-title">账号名:{{ current_user_message.username }}</h5>
+                    <h5 class="card-title">性别:{{ current_user_message.sex }}</h5>
+                    <h5 class="card-title">年龄:{{ current_user_message.age }}</h5>
+                    <h5 class="card-title">简介:{{ current_user_message.resume }}</h5>
+                    <!-- 输入框 -->
+                     <form action="{% url 'media:send_message' %}" method="post" class="mt-3">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" name="message" placeholder="请输入你要发送的内容"></textarea>
+                            <button type="submit" class="btn btn-primary mt-2 float-right">发送</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card-columns">
+                {% for m in page_message %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <img width="25" height="25" src="{% static m.user.image.url %}" class="img-thumbnail" />
+                                <a href="{% url 'media:select_user_message' m.user.username %}">{{ m.user.username }}</a>
+                            </h5>
+                            <p class="card-text">{{ m.media_text }}</p>
+                            <p class="card-text">{{ m.release_time }}</p>
+                            <div style="display: flex; align-items: center;"> <!-- 添加一个新的 <div> 并设置 flex 布局 -->
+                                <form action="{% url 'media:support_message' m.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-outline-secondary btn-sm float-right" style="font-size: 15px">&#128525;</button>
+                                    <span class="like-count">{{ m.media_support }}</span>
+                                </form>
+                                <form action="{% url 'media:dislike_message' m.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-outline-secondary btn-sm ml-1 float-right" style="font-size: 15px">&#128530;</button>
+                                    <span class="dislike-count">{{ m.media_dislike }}</span>
+                                </form>
+                            </div>
+{#                            <div class="mt-2">#}
+{#                                <!-- 评论列表 -->#}
+{#                                {% for comment in m.comments.all %}#}
+{#                                    <p class="font-italic small">{{ comment.text }} - {{ comment.user }}</p>#}
+{#                                {% endfor %}#}
+{#                            </div>#}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="btn-group-sm-container" style="margin-top: 10px;">
+            <div class="btn-group-sm">
+                <span class="step-links">
+                    <p class="card-text">
+                        {% if page_message.has_previous %}
+                            <a href="?page={{ 1 }}" class="btn btn-success">第一页</a>
+                            <a href="?page={{ page_message.previous_page_number }}" class="btn btn-success">上一页</a>
+                        {% endif %}
+
+                        当前：{{ page_message.number }} / {{ page_message.paginator.num_pages }}
+
+                        {% if page_message.has_next %}
+                            <a href="?page={{ page_message.next_page_number }}" class="btn btn-success">下一页</a>
+                            <a href="?page={{ page_message.paginator.num_pages }}" class="btn btn-success">最后一页</a>
+                        {% endif %}
+                    </p>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
